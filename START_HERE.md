@@ -55,6 +55,7 @@ Standard linear AI writing workflows fail for EU grants because **consortium bui
 
 | # | Workflow | Agents | Description |
 |---|---------|--------|-------------|
+| **W-pre** | `w_pre_applicant_onboarding` | User (interview) | One-time team profile: who you are, what you bring, your track record |
 | **W0** | `w0_ideation_and_gap_analysis` | SotA Researcher, Tech Scout, Visionary Ideator, End-User Simulator | Deep research, solution design, creative ideation, reality check |
 | **W0.5** | `w0_5_storyline_lock` | Narrative Strategist | Lock the Roter Faden — the Red Thread all agents follow |
 | W1 | `w1_call_discovery` | Call Strategist | Parse and assess the call |
@@ -71,21 +72,26 @@ Standard linear AI writing workflows fail for EU grants because **consortium bui
 
 ## Quick Start
 
-### 1. Set up your proposal
+### 1. Set up your team profile (once)
+
+If this is your first time using the system, the Coordinator will walk you through **W-pre: Applicant Onboarding** — a short interview about your organisation, team, track record, and strategic focus. This populates `knowledge/applicant_profile.md` and is reused across all future proposals.
+
+### 2. Set up your proposal
 
 Edit these files with your information:
 - `knowledge/proposal_concept_live.md` — your proposal idea (even a rough paragraph is enough to start)
 - `knowledge/partner_matrix.md` — any partners you already have (can be empty)
 
-### 2. Activate the Coordinator Hub
+### 3. Activate the Coordinator Hub
 
 Load `agents/coordinator-hub.md` as the system prompt for your central agent. It will:
-1. Read your concept (and call text if you have one)
-2. Assess what phase you're in
-3. Recommend the next workflow step
-4. Begin orchestrating
+1. Check for an applicant profile (if missing, starts W-pre onboarding)
+2. Read your concept (and call text if you have one)
+3. Assess what phase you're in
+4. Recommend the next workflow step
+5. Begin orchestrating
 
-### 3. The system guides you
+### 4. The system guides you
 
 The Coordinator will take you through the full lifecycle:
 - **W0**: The "Brain Trust" researches the landscape, designs the solution, brainstorms angles, and reality-checks with a practitioner persona
@@ -121,6 +127,7 @@ horizon-os/
 │   ├── core_storyline_mapping.md  ← THE RED THREAD (Problem→Gap→Obj→Impact)
 │   ├── competitor_landscape.md    ← Competing consortia intelligence
 │   ├── stakeholder_map.md        ← Full ecosystem mapping
+│   ├── applicant_profile.md         ← Your team: who you are, what you bring
 │   ├── partner_matrix.md         ← Living consortium roster
 │   ├── proposal_concept_live.md  ← Evolving concept note
 │   ├── call_text_live.md         ← Parsed call text

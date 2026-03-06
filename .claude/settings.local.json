@@ -3,7 +3,21 @@
     "allow": [
       "Read",
       "Glob",
-      "Grep"
+      "Grep",
+      "WebSearch",
+      "WebFetch(domain:ec.europa.eu)",
+      "WebFetch(domain:www.seren-project.eu)",
+      "WebFetch(domain:iuk-business-connect.org.uk)",
+      "WebFetch(domain:apre.it)",
+      "Bash(pip install:*)",
+      "WebFetch(domain:cordis.europa.eu)",
+      "WebFetch(domain:www.privanova.com)",
+      "WebFetch(domain:eticas.ai)",
+      "WebFetch(domain:www.eticasconsulting.com)",
+      "WebFetch(domain:project.iprocuresecurity.eu)",
+      "WebFetch(domain:www.santannapisa.it)",
+      "WebFetch(domain:counter-project.eu)",
+      "WebFetch(domain:www.law.kuleuven.be)"
     ]
   }
 }
