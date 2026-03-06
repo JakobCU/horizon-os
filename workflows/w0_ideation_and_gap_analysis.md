@@ -32,25 +32,29 @@ W0 answers all of this before a single line of proposal text is written.
   - Candidate call topic(s) if known
   - Any existing partners
 
-### Step 2: State-of-the-Art Deep Dive
-- **Actor**: Coordinator Hub → SotA Researcher
+### Step 2: State-of-the-Art Deep Dive (Pass 1 — Landscape Scan)
+- **Actor**: Coordinator Hub → SotA Researcher (orchestrator)
 - **Dispatch**:
   ```
   TO: sota-researcher
   WORKFLOW: w0_ideation_and_gap_analysis
+  PASS: 1_landscape
   TASK:
-    - Map the state of the art for [problem area]
-    - Search CORDIS for past/ongoing EU projects in this space
-    - Identify Innovation Gaps
-    - Assess duplication risk
-    - Populate knowledge/past_cordis_abstracts.md
-    - Create initial entries in knowledge/tech_radar/
-    - Build knowledge/competitor_landscape.md
+    - Define search domains from concept and call text
+    - Dispatch sub-agents in parallel:
+      → sota-literature: academic papers, benchmarks, research groups
+      → sota-commercial: products, platforms, companies, open-source
+      → sota-eu-projects: CORDIS past/ongoing projects, duplication risk
+      → sota-regulatory: standards, regulations, patents, ethical frameworks
+    - Cross-reference and synthesize into Innovation Gap definitions
+    - Populate knowledge files (past_cordis_abstracts, competitor_landscape,
+      sota_literature, sota_commercial, sota_regulatory)
   CONTEXT:
     concept: [from proposal_concept_live.md]
     candidate_call: [if known]
   ```
-- **Output**: Innovation Gap Report with structured gap definitions
+- **Output**: Innovation Gap Report with structured gap definitions from all four source types
+- **Note**: A deeper Pass 2 (per-WP deep dive) runs before W3 drafting to produce citable SotA briefs for the Excellence Architect
 
 ### Step 3: Solution Architecture (parallel with Step 4)
 - **Actor**: Coordinator Hub → Tech Scout
@@ -133,13 +137,16 @@ W0 answers all of this before a single line of proposal text is written.
   - **ABORT** → The concept doesn't have enough innovation gap or the competition is too strong
 
 ## Exit Criteria
-- [ ] SotA Research complete — Innovation Gaps defined and documented
+- [ ] SotA Research Pass 1 complete — Innovation Gaps defined from all four source types
+- [ ] `knowledge/past_cordis_abstracts.md` populated (EU Project Reviewer)
+- [ ] `knowledge/sota_literature.md` populated (Literature Reviewer)
+- [ ] `knowledge/sota_commercial.md` populated (Commercial Reviewer)
+- [ ] `knowledge/sota_regulatory.md` populated (Regulatory Reviewer)
+- [ ] `knowledge/competitor_landscape.md` populated
 - [ ] Solution Architecture designed — building blocks, TRL pathways, risks identified
 - [ ] Creative ideas generated and feasibility-assessed
 - [ ] Practitioner review completed — no showstoppers (or showstoppers addressed)
 - [ ] `knowledge/proposal_concept_live.md` updated with refined concept
 - [ ] `knowledge/core_storyline_mapping.md` initialized (Problem → Gap → Objective → Methodology chains)
 - [ ] `knowledge/tech_radar/` populated with key technology assessments
-- [ ] `knowledge/past_cordis_abstracts.md` populated with relevant projects
-- [ ] `knowledge/competitor_landscape.md` populated
 - [ ] User has approved the refined concept (GO decision)

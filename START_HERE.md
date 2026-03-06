@@ -107,9 +107,13 @@ You'll be asked for input at key decision points (concept approval, partner appr
 
 ```
 horizon-os/
-├── agents/                ← System prompts for all 14 agents
+├── agents/                ← System prompts for all agents
 │   ├── coordinator-hub        (central orchestrator)
-│   ├── sota-researcher        (academic landscape + gap analysis)
+│   ├── sota-researcher        (SotA orchestrator — dispatches sub-agents)
+│   │   ├── sota-literature    (scientific papers, benchmarks, research groups)
+│   │   ├── sota-commercial    (products, platforms, companies, open-source)
+│   │   ├── sota-eu-projects   (CORDIS, EU project landscape, duplication risk)
+│   │   └── sota-regulatory    (standards, regulations, patents, ethics)
 │   ├── tech-scout             (solution architecture)
 │   ├── visionary-ideator      (creative X-factor)
 │   ├── narrative-strategist   (Red Thread / Roter Faden guardian)
@@ -132,6 +136,9 @@ horizon-os/
 │   ├── proposal_concept_live.md  ← Evolving concept note
 │   ├── call_text_live.md         ← Parsed call text
 │   ├── past_cordis_abstracts.md  ← EU project reference database
+│   ├── sota_literature.md       ← Scientific literature per domain
+│   ├── sota_commercial.md       ← Products & market landscape per domain
+│   ├── sota_regulatory.md       ← Standards, regulations, patents
 │   ├── tech_radar/               ← Technology landscape assessments
 │   ├── definitions/              ← Reference materials (TRL, taxonomy, open science)
 │   ├── eu_policies/              ← Relevant EU policy summaries
@@ -152,5 +159,5 @@ horizon-os/
 4. **Practitioner-First** — The End-User Simulator ensures the proposal works in the field, not just on paper
 5. **Strict EU Compliance** — Every eval criterion, formatting rule, and cross-cutting theme is checklistified
 6. **Markdown-Driven** — Everything is a readable, versionable Markdown file
-7. **Separation of Concerns** — 14 specialist agents; only the Coordinator sees the full picture
+7. **Separation of Concerns** — 14 specialist agents + 4 SotA sub-agents; only the Coordinator sees the full picture
 8. **Human in the Loop** — The system researches, drafts, and recommends; you decide and submit
