@@ -11,34 +11,35 @@ Standard linear AI writing workflows fail for EU grants because **consortium bui
 ## Architecture Overview
 
 ```
-                        ┌─────────────────┐
-                        │  COORDINATOR HUB │  ← Central state manager
-                        │  (Global State)  │
-                        └────────┬────────┘
-                                 │
-          ┌──────────────────────┼──────────────────────┐
-          │                      │                      │
-    ┌─────▼─────┐         ┌─────▼─────┐         ┌─────▼─────┐
-    │ EXCELLENCE │         │  IMPACT   │         │IMPLEMENTA-│
-    │ ARCHITECT  │         │SPECIALIST │         │TION MANAGER│
-    └─────┬─────┘         └─────┬─────┘         └─────┬─────┘
-          │                      │                      │
-          │     GAP_DETECTED     │    GAP_DETECTED      │    GAP_DETECTED
-          │─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─│─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─│
-          │                      │                      │
-          └──────────────────────┼──────────────────────┘
-                                 │
-                        ┌────────▼────────┐
-                        │ CONSORTIUM SCOUT│  ← Triggered on gaps
-                        │ (Partner Search)│
-                        └────────┬────────┘
-                                 │
-                        ┌────────▼────────┐
-                        │ partner_matrix.md│  ← Living memory
-                        │ (Shared State)   │
-                        └─────────────────┘
+                    ┌──────────────────────┐
+                    │    COORDINATOR HUB    │  ← Central state manager
+                    │    (Global State)     │
+                    └──────────┬───────────┘
+                               │
+        ┌──────────────────────┼──────────────────────┐
+        │                      │                      │
+   ─ ─ ─ ─ ─ ─ ─ ─     ─ ─ ─ ─ ─ ─ ─ ─     ─ ─ ─ ─ ─ ─ ─ ─
+  │ BRAIN TRUST (W0) │  │ DRAFTING (W3-5) │  │ QUALITY (W7-8) │
+   ─ ─ ─ ─ ─ ─ ─ ─     ─ ─ ─ ─ ─ ─ ─ ─     ─ ─ ─ ─ ─ ─ ─ ─
+  │                 │  │                 │  │                 │
+  │ SotA Researcher │  │ Excellence      │  │ Compliance      │
+  │ Tech Scout      │  │   Architect     │  │   Reviewer      │
+  │ Visionary       │  │ Impact          │  │ Narrative       │
+  │   Ideator       │  │   Specialist    │  │   Strategist    │
+  │ End-User        │  │ Implementation  │  │ End-User        │
+  │   Simulator     │  │   Manager       │  │   Simulator     │
+  │ Narrative       │  │                 │  │                 │
+  │   Strategist    │  │   GAP_DETECTED──┼──┼──► Consortium   │
+   ─ ─ ─ ─ ─ ─ ─ ─     ─ ─ ─ ─ ─ ─ ─ ─  │ │     Scout      │
+                                           │  ─ ─ ─ ─ ─ ─ ─ ─
+        ┌──────────────────────────────────┘
+        │
+  ┌─────▼──────────────────┐     ┌────────────────────────────┐
+  │  partner_matrix.md     │     │ core_storyline_mapping.md  │
+  │  (Consortium Memory)   │     │ (The Roter Faden)          │
+  └────────────────────────┘     └────────────────────────────┘
 
-  Support agents: Call Strategist, Compliance Reviewer, Budget Balancer, IP & Legal Expert
+  Support: Call Strategist, Budget Balancer, IP & Legal Expert, Consortium Scout
 ```
 
 ## The Iterative Teaming Loop
@@ -52,65 +53,97 @@ Standard linear AI writing workflows fail for EU grants because **consortium bui
 
 ## Workflow Sequence
 
-| # | Workflow | Agent | Description |
-|---|---------|-------|-------------|
+| # | Workflow | Agents | Description |
+|---|---------|--------|-------------|
+| **W0** | `w0_ideation_and_gap_analysis` | SotA Researcher, Tech Scout, Visionary Ideator, End-User Simulator | Deep research, solution design, creative ideation, reality check |
+| **W0.5** | `w0_5_storyline_lock` | Narrative Strategist | Lock the Roter Faden — the Red Thread all agents follow |
 | W1 | `w1_call_discovery` | Call Strategist | Parse and assess the call |
 | W2 | `w2_consortium_scouting_loop` | Consortium Scout | Initial consortium assembly |
 | W3 | `w3_draft_excellence` | Excellence Architect | Draft Part B Section 1 |
 | W4 | `w4_draft_impact_and_pedr` | Impact Specialist | Draft Part B Section 2 |
 | W5 | `w5_draft_implementation_wp` | Implementation Manager | Draft Part B Section 3 |
 | W6 | `w6_iterative_partner_fill` | Consortium Scout | Mid-draft partner scouting (re-entry) |
-| W7 | `w7_red_team_review` | Compliance Reviewer | Score and critique all sections |
+| W7 | `w7_red_team_review` | Compliance Reviewer + Narrative Strategist | Score, critique, coherence audit |
 | W8 | `w8_final_assembly_and_trim` | Coordinator Hub | Final assembly, page trim, submission package |
+| **W9** | `w9_post_submission` | Coordinator Hub | Rebuttal prep, evaluation analysis, lessons learned |
 
-**Not linear** — W6 can be triggered at any point during W3-W5. W7 can be run per-section or at the end.
+**Not linear** — W6 can be triggered at any point during W3-W5. W7 can be run per-section or at the end. W0/W0.5 always run first.
 
 ## Quick Start
 
 ### 1. Set up your proposal
 
 Edit these files with your information:
-- `knowledge/proposal_concept_live.md` — your proposal idea, objectives, WP overview
-- `knowledge/partner_matrix.md` — any partners you already have
+- `knowledge/proposal_concept_live.md` — your proposal idea (even a rough paragraph is enough to start)
+- `knowledge/partner_matrix.md` — any partners you already have (can be empty)
 
-### 2. Provide a call text
-
-Paste the raw call text from the Funding & Tenders Portal into `knowledge/call_text_live.md` (or give it to the Coordinator to dispatch to the Call Strategist).
-
-### 3. Activate the Coordinator Hub
+### 2. Activate the Coordinator Hub
 
 Load `agents/coordinator-hub.md` as the system prompt for your central agent. It will:
-1. Read your concept and call text
-2. Assess consortium readiness
+1. Read your concept (and call text if you have one)
+2. Assess what phase you're in
 3. Recommend the next workflow step
 4. Begin orchestrating
 
-### 4. Follow the workflow
+### 3. The system guides you
 
-The Coordinator will guide you through W1→W8, pausing for your input when needed (partner approvals, scope decisions, budget sign-offs).
+The Coordinator will take you through the full lifecycle:
+- **W0**: The "Brain Trust" researches the landscape, designs the solution, brainstorms angles, and reality-checks with a practitioner persona
+- **W0.5**: The Narrative Strategist locks the Red Thread so all agents tell the same story
+- **W1-W2**: Call analysis and consortium building
+- **W3-W5**: Section drafting (with automatic W6 partner scouting loops when gaps appear)
+- **W7-W8**: Red Team review, final assembly, submission package
+- **W9**: Post-submission analysis and lessons learned
+
+You'll be asked for input at key decision points (concept approval, partner approvals, scope decisions, budget sign-offs, storyline lock).
 
 ## Directory Structure
 
 ```
 horizon-os/
-├── agents/              ← System prompts for each agent
-├── evals/               ← Evaluation checklists (Red Team uses these)
-├── knowledge/           ← Living knowledge base (call text, partners, concept)
-│   ├── definitions/     ← Reference materials (TRL, taxonomy, open science)
-│   ├── eu_policies/     ← Relevant EU policy summaries
-│   └── work_programmes/ ← CL3 work programme summaries
-├── output/              ← Generated artifacts
-│   ├── current_draft/   ← Part B sections (Excellence, Impact, Implementation)
-│   ├── budget_drafts/   ← Budget iterations
-│   └── partner_outreach/← Drafted outreach emails
-├── templates/           ← Structural templates for all outputs
-└── workflows/           ← Step-by-step workflow definitions
+├── agents/                ← System prompts for all 14 agents
+│   ├── coordinator-hub        (central orchestrator)
+│   ├── sota-researcher        (academic landscape + gap analysis)
+│   ├── tech-scout             (solution architecture)
+│   ├── visionary-ideator      (creative X-factor)
+│   ├── narrative-strategist   (Red Thread / Roter Faden guardian)
+│   ├── end-user-simulator     (practitioner reality check)
+│   ├── call-strategist        (call parsing + strategy)
+│   ├── consortium-scout       (partner search + outreach)
+│   ├── excellence-architect   (Part B Section 1)
+│   ├── impact-specialist      (Part B Section 2)
+│   ├── implementation-manager (Part B Section 3)
+│   ├── compliance-reviewer    (Red Team evaluator)
+│   ├── budget-balancer        (budget construction + validation)
+│   └── ip-legal-expert        (IP, GDPR, ethics, legal)
+├── evals/                 ← Evaluation checklists (Red Team uses these)
+├── knowledge/             ← Living knowledge base
+│   ├── core_storyline_mapping.md  ← THE RED THREAD (Problem→Gap→Obj→Impact)
+│   ├── competitor_landscape.md    ← Competing consortia intelligence
+│   ├── stakeholder_map.md        ← Full ecosystem mapping
+│   ├── partner_matrix.md         ← Living consortium roster
+│   ├── proposal_concept_live.md  ← Evolving concept note
+│   ├── call_text_live.md         ← Parsed call text
+│   ├── past_cordis_abstracts.md  ← EU project reference database
+│   ├── tech_radar/               ← Technology landscape assessments
+│   ├── definitions/              ← Reference materials (TRL, taxonomy, open science)
+│   ├── eu_policies/              ← Relevant EU policy summaries
+│   └── work_programmes/          ← CL3 work programme summaries
+├── output/                ← Generated artifacts
+│   ├── current_draft/     ← Part B sections (Excellence, Impact, Implementation)
+│   ├── budget_drafts/     ← Budget iterations
+│   └── partner_outreach/  ← Drafted outreach emails
+├── templates/             ← Structural templates for all outputs
+└── workflows/             ← Step-by-step workflow definitions (W0 → W9)
 ```
 
 ## Key Design Principles
 
-1. **Iterative Teaming** — Consortium building loops back during drafting, not just upfront
-2. **Strict EU Compliance** — Every eval criterion, formatting rule, and cross-cutting theme is checklistified
-3. **Markdown-Driven** — Everything is a readable, versionable Markdown file
-4. **Separation of Concerns** — Agents are specialists; only the Coordinator sees the full picture
-5. **Human in the Loop** — The system drafts and recommends; you decide and submit
+1. **Think Before You Write** — W0 (Brain Trust) researches, designs, and ideates BEFORE any drafting begins
+2. **The Roter Faden** — One Red Thread connects Problem → Gap → Objectives → Methodology → Results → Impact. The Narrative Strategist guards it.
+3. **Iterative Teaming** — Consortium building loops back during drafting, not just upfront
+4. **Practitioner-First** — The End-User Simulator ensures the proposal works in the field, not just on paper
+5. **Strict EU Compliance** — Every eval criterion, formatting rule, and cross-cutting theme is checklistified
+6. **Markdown-Driven** — Everything is a readable, versionable Markdown file
+7. **Separation of Concerns** — 14 specialist agents; only the Coordinator sees the full picture
+8. **Human in the Loop** — The system researches, drafts, and recommends; you decide and submit
